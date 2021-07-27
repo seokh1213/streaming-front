@@ -1,9 +1,11 @@
 import SearchBar from "./SearchBar";
+import Logo from "./Logo";
 import styled from "styled-components";
 
 function Header(props) {
   return (
     <HeaderDiv>
+      <Logo />
       <SearchBar />
     </HeaderDiv>
   );

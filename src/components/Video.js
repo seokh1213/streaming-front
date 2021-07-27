@@ -52,7 +52,7 @@ function Video({
     <VideoCard>
       <Link to={`/watch/${id}`}>
         <div id="thumbnail">
-          <img alt="thumbnail image" src={thumbnailUrl} />
+          <img alt="thumbnail" src={thumbnailUrl} />
           <div>{convertSeconds(runtime)}</div>
         </div>
         <div id="info">
