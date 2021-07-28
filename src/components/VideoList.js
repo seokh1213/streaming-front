@@ -1,11 +1,11 @@
 import Video from "./Video";
 import styled from "styled-components";
 
-function VideoList({ videos }) {
+function VideoList({ videos,  direction="column"}) {
   return (
-    <List>
+    <List direction={direction}>
       {videos.map((video, i) => (
-        <Video key={i} {...video} />
+        <Video key={i} {...video} direction={direction}/>
       ))}
     </List>
   );

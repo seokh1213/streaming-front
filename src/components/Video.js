@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -10,6 +11,8 @@ function Video({
   name,
   viewCnt,
   createAt,
+  direction,
+  description
 }) {
   const convertSeconds = (runtime) => {
     const hours = Math.floor(runtime / 3600);
@@ -49,32 +52,55 @@ function Video({
   };
 
   return (
-    <VideoCard>
-      <Link to={`/watch/${id}`}>
-        <div id="thumbnail">
-          <img alt="thumbnail" src={thumbnailUrl} />
-          <div>{convertSeconds(runtime)}</div>
-        </div>
-        <div id="info">
-          <img alt="profile" src={profileImageUrl} />
-          <div>
-            <p id="title">{title}</p>
-            <p id="name">{name}</p>
-            <p id="meta">
-              <span>{convertViewCnt(viewCnt)}</span>
-              <span>{convertTimestamp(createAt)}</span>
-            </p>
-          </div>
-        </div>
-      </Link>
+    <VideoCard direction={direction} to={`/watch/${id}`}>
+      <div id="thumbnail">
+        <img alt="thumbnail" src={thumbnailUrl} />
+        <div>{convertSeconds(runtime)}</div>
+      </div>
+      <div id="info">
+        {
+          direction==='column'?(
+            <>
+              <img alt="profile" src={profileImageUrl} />
+              <div>
+                <p id="title">{title}</p>
+                <p id="name">{name}</p>
+                <p id="meta">
+                  <span>{convertViewCnt(viewCnt)}</span>
+                  <span>{convertTimestamp(createAt)}</span>
+                </p>
+              </div>
+            </>
+          ):(
+            <>
+              <div>
+                <p id="title">{title}</p>
+                <p id="meta">
+                  <span>{convertViewCnt(viewCnt)}</span>
+                  <span>{convertTimestamp(createAt)}</span>
+                </p>
+                <div id="creator">
+                  <img alt="profile" src={profileImageUrl} />
+                  <p id="name">{name}</p>
+                </div>
+                <div id="description">{description}</div>
+              </div>
+            </>
+          )
+        }
+      </div>
     </VideoCard>
   );
 }
 
-const VideoCard = styled.div`
+const VideoCard = styled(Link)`
   cursor: pointer;
   width: 100%;
   padding: 10px 5px;
+  display: flex;
+  flex-direction: ${props=>props.direction} ;
+
+  ${props=>props.direction==="column" && `
   @media screen and (min-width: 768px) {
     width: calc(33% - 10px);
   }
@@ -84,8 +110,12 @@ const VideoCard = styled.div`
   @media screen and (min-width: 1400px) {
     width: calc(20% - 10px);
   }
+  `
+  }
+  
   #thumbnail {
     position: relative;
+    flex: 1;
     img {
       width: 100%;
     }
@@ -101,8 +131,9 @@ const VideoCard = styled.div`
     }
   }
   #info {
+    flex:1.5;
     display: flex;
-    margin-top: 5px;
+    ${props=>props.direction==="column"?`margin-top: 5px;`:`margin-left: 15px;margin-top: 10px;`}
     img {
       width: 36px;
       height: 36px;
@@ -110,11 +141,12 @@ const VideoCard = styled.div`
       align-self: center;
       margin: 0 10px;
     }
-    div {
+    & > div {
       flex: 1;
       color: #606060;
       font-size: 14px;
       #title {
+        ${props=>props.direction==="row"&&"font-size:18px;"}
         color: #030303;
         margin-bottom: 5px;
       }
@@ -124,6 +156,16 @@ const VideoCard = styled.div`
             content: "•";
             margin: 0 4px;
           }
+        }
+      }
+      #creator {
+        margin-top: 10px;
+        display: flex;
+        margin-bottom: 10px;
+        align-items: center;
+        img {
+          margin:0;
+          margin-right: 5px;
         }
       }
     }
