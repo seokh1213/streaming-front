@@ -9,7 +9,7 @@ function SearchBar(props) {
 
   const onSubmit=(event)=>{
     event.preventDefault();
-    history.push(`/search/?query=${query}`);
+    query!="" && history.push(`/search/?query=${query}`);
   }
 
   return (
