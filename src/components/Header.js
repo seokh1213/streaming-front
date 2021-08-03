@@ -1,5 +1,6 @@
 import SearchBar from "./SearchBar";
 import Logo from "./Logo";
+import UploadIcon from "./UploadIcon";
 import styled from "styled-components";
 
 function Header(props) {
@@ -7,6 +8,7 @@ function Header(props) {
     <HeaderDiv>
       <Logo />
       <SearchBar />
+      <UploadIcon />
     </HeaderDiv>
   );
 }

@@ -8,7 +8,7 @@ const logoStyle = {
 function Logo({}){
   return (
     <Link style={logoStyle} to="/">
-      <LogoIcon width="16" height="16" fill="#9c9c9c"  />
+      <LogoIcon width="16" height="16" fill="#606060"  />
     </Link>
   );
 }
